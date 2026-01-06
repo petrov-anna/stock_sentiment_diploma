@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прогноз цены акции</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<header>
+    <h1>📈 Прогноз цены акции</h1>
+    <nav>
+        <a href="/">Главная</a>
+        <a href="/analysis">Анализ sentiment</a>
+        <a href="/forecast" class="active">Прогноз</a>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h2>Настройки прогноза</h2>
+        
+        <!-- <div class="form-group">
+            <label for="ticker">Тикер акции:</label>
+            <select id="ticker">
+                <option value="AAPL">AAPL (Apple)</option>
+                <option value="GOOGL">GOOGL (Google)</option>
+                <option value="MSFT">MSFT (Microsoft)</option>
+                <option value="TSLA">TSLA (Tesla)</option>
+            </select>
+        </div> -->
+        
+        <div class="form-group">
+            <label for="days">Дней для прогноза:</label>
+            <input type="range" id="days-range" min="1" max="30" value="5">
+            <input type="number" id="days" value="5" min="1" max="30">
+        </div>
+        
+        <div class="form-group">
+            <label for="sentiment">Настроение рынка (sentiment):</label>
+            <select id="sentiment">
+                <option value="1">📈 Позитивное</option>
+                <option value="0" selected>➡️ Нейтральное</option>
+                <option value="-1">📉 Негативное</option>
+            </select>
+        </div>
+        
+        <button onclick="runForecast()" id="forecast-btn">
+            🚀 Рассчитать прогноз
+        </button>
+    </div>
+    
+    <div class="card">
+        <h2>График прогноза</h2>
+        <div class="chart-container">
+            <canvas id="forecastChart"></canvas>
+        </div>
+    </div>
+    
+    <!-- Здесь будет появляться forecast-info -->
+</div>
+
+<script src="/static/forecast.js"></script>
+<script>
+    // Синхронизация ползунка и числа
+    const daysRange = document.getElementById('days-range');
+    const daysInput = document.getElementById('days');
+    
+    daysRange.addEventListener('input', function() {
+        daysInput.value = this.value;
+    });
+    
+    daysInput.addEventListener('input', function() {
+        const value = Math.min(Math.max(parseInt(this.value) || 1, 1), 30);
+        daysRange.value = value;
+        this.value = value;
+    });
+    
+    // Автоматический запуск при изменении настроек
+    document.getElementById('sentiment').addEventListener('change', runForecast);
+    daysInput.addEventListener('change', runForecast);
+    daysRange.addEventListener('change', runForecast);
+    
+    // Стиль для активной ссылки
+    document.querySelectorAll('nav a').forEach(link => {
+        if (link.href === window.location.href) {
+            link.classList.add('active');
+        }
+    });
+</script>
+
+</body>
+</html>

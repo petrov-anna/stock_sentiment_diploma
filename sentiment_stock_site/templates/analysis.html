@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Анализ sentiment</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>📈 Прогноз цены акции</h1>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/analysis">Анализ sentiment</a>
+            <a href="/forecast" class="active">Прогноз</a>
+        </nav>
+    </header>
+
+<div class="container">
+
+    <div class="card">
+        <label>Тикер:</label>
+        <select id="ticker"></select>
+
+        <label>Период (дней):</label>
+        <input type="number" id="days" value="30">
+
+        <button onclick="loadChart()">Показать</button>
+    </div>
+
+    <div class="card">
+        <canvas id="analysisChart"></canvas>
+    </div>
+
+</div>
+
+<script src="/static/analysis.js"></script>
+</body>
+</html>
