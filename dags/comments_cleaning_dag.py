@@ -36,7 +36,7 @@ MIN_TEXT_LENGTH = 10
 CHUNK_SIZE = 2_000
 
 
-# CLEANING FUNCTIONS (ТВОИ, БЕЗ ИЗМЕНЕНИЙ)
+# CLEANING FUNCTIONS
 def clean_html(text: str) -> str:
     return BeautifulSoup(text, "lxml").get_text(" ")
 
